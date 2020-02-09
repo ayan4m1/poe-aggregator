@@ -1,8 +1,32 @@
-import { all } from 'redux-saga/effects';
+import { all, takeLatest } from 'redux-saga/effects';
 
-export const workers = {};
+import { types } from 'reducers/application';
 
-export const watchers = {};
+function clearSessionIdWorker() {
+  localStorage.removeItem('sessionId');
+}
+
+function setSessionIdWorker({ sessionId }) {
+  localStorage.setItem('sessionId', sessionId);
+}
+
+export const workers = {
+  clearSessionIdWorker,
+  setSessionIdWorker
+};
+
+function* clearSessionIdWatcher() {
+  return yield takeLatest(types.CLEAR_SESSION_ID, clearSessionIdWorker);
+}
+
+function* setSessionIdWatcher() {
+  return yield takeLatest(types.SET_SESSION_ID, setSessionIdWorker);
+}
+
+export const watchers = {
+  clearSessionIdWatcher,
+  setSessionIdWatcher
+};
 
 export default function* saga() {
   yield all(Object.values(watchers).map(watcher => watcher()));
