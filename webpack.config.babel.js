@@ -38,7 +38,7 @@ export default {
   entry: './src/index.js',
   devServer: {
     compress: dev,
-    open: true,
+    open: false,
     overlay: true,
     historyApiFallback: true,
     hot: dev,
@@ -90,8 +90,8 @@ export default {
     ]
   },
   output: {
-    path: resolve(__dirname, 'dist'),
-    filename: 'main.js',
+    path: resolve(__dirname, 'public'),
+    filename: 'index.js',
     chunkFilename: '[name].js'
   },
   plugins,
@@ -100,6 +100,9 @@ export default {
     modules: ['node_modules', 'src'],
     alias: {
       components: resolve(__dirname, 'src/components'),
+      reducers: resolve(__dirname, 'src/reducers'),
+      sagas: resolve(__dirname, 'src/sagas'),
+      selectors: resolve(__dirname, 'src/selectors'),
       utils: resolve(__dirname, 'src/utils')
     }
   },
